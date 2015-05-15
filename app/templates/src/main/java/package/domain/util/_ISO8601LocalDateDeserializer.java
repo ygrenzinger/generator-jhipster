@@ -9,11 +9,11 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.ZoneId;
-
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 /**
  * ISO 8601 date format
@@ -29,7 +29,7 @@ public class ISO8601LocalDateDeserializer extends JsonDeserializer<LocalDate> {
         JsonToken t = jp.getCurrentToken();
         if (t == JsonToken.VALUE_STRING) {
             String str = jp.getText().trim();
-            return formatter.parse(str);
+            return LocalDate.from(formatter.parse(str));
         }
         if (t == JsonToken.VALUE_NUMBER_INT) {
             return Instant.ofEpochMilli(jp.getLongValue()).atZone(ZoneId.systemDefault()).toLocalDate();

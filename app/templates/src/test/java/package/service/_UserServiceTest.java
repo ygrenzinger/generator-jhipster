@@ -163,7 +163,7 @@ public class UserServiceTest <% if (databaseType == 'cassandra') { %>extends Abs
 
         String oldPassword = user.getPassword();
 
-        DateTime daysAgo = DateTime.now().minusHours(2);
+        ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();
         user.setActivated(true);
         user.setResetDate(daysAgo);
@@ -184,7 +184,7 @@ public class UserServiceTest <% if (databaseType == 'cassandra') { %>extends Abs
 
         String oldPassword = user.getPassword();
 
-        DateTime daysAgo = DateTime.now().minusHours(2);
+        ZonedDateTime daysAgo = ZonedDateTime.now().minusHours(2);
         String resetKey = RandomUtil.generateResetKey();
         user.setActivated(true);
         user.setResetDate(daysAgo);
@@ -206,7 +206,7 @@ public class UserServiceTest <% if (databaseType == 'cassandra') { %>extends Abs
     @Test
     public void testFindNotActivatedUsersByCreationDateBefore() {
         userService.removeNotActivatedUsers();
-        DateTime now = new DateTime();
+        ZonedDateTime now = ZonedDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         assertThat(users).isEmpty();
     }<% } %><% if ((databaseType == 'sql' || databaseType == 'mongodb') && authenticationType == 'session') { %>

@@ -54,7 +54,7 @@ public class LocaleDateTimeEditor extends PropertyEditorSupport {
             // Treat empty String as null value.
             setValue(null);
         } else {
-            setValue(LocalDate.from(formatter.parse(text)));
+            setValue(LocalDateTime.from(formatter.parse(text)));
         }
     }
 }
